@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SqlServer.Server;
 
@@ -12,7 +10,7 @@ namespace InfiniteLoopInSystemDataRepro
 {
 	class Program
 	{
-		static string ConnectionString = @"Data Source=(localdb)\SystemDataRepro;Database=SystemDataRepro2;Integrated Security=true;";
+		static string ConnectionString = @"Data Source=(localdb)\SystemDataRepro;Database=SystemDataRepro;Integrated Security=true;";
 
 		// Database setup, 
 		// from powershell: sqllocaldb create SystemDataRepro 13.0
@@ -84,7 +82,7 @@ namespace InfiniteLoopInSystemDataRepro
 					0,
 					new byte[] { 1, 2, 56, 31, 0, 0, 7, 8, 9, 10, 11, 12, 13, 14 },
 					0,
-					14); 
+					14);
 
 				// change any of the 56 31 0 0 bytes and this program completes as expected in a couple seconds
 			}
@@ -113,6 +111,8 @@ namespace InfiniteLoopInSystemDataRepro
 			public bool MoveNext()
 			{
 				_count++;
+				if (_count % 100 == 0)
+					Console.Write(".");
 				return _count < 1000000;
 
 			}
